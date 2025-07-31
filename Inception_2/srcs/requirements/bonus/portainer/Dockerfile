@@ -1,0 +1,13 @@
+FROM alpine:3.21.4
+
+RUN     apk update && apk upgrade && apk add --no-cache curl
+
+WORKDIR /app
+
+RUN curl -L https://github.com/portainer/portainer/releases/download/2.19.4/portainer-2.19.4-linux-amd64.tar.gz -o portainer.tar.gz \
+    && tar xzf portainer.tar.gz \
+    && rm portainer.tar.gz
+
+EXPOSE 9443 8000 9000
+
+ENTRYPOINT ["./portainer/portainer"]
